@@ -1,0 +1,11 @@
+{
+  "sensors": {
+    "machineTemp": 45,
+    "ambientTemp": 25,
+    "soundLevel": 65,
+    "motion": "LOW",
+    "people": 0,
+    "intrusion": false,
+    "emergencyBtn": false
+  }
+}
