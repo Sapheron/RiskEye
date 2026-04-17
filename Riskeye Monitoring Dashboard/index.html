@@ -2354,9 +2354,9 @@
         $("val-temp").textContent = machineTemp;
         let tempColor;
 
-        if (machineTemp <= 30) {
+        if (machineTemp <= 40) {
           tempColor = "var(--safe)"; // GREEN
-        } else if (machineTemp <= 40) {
+        } else if (machineTemp <= 50) {
           tempColor = "var(--warn)"; // YELLOW
         } else {
           tempColor = "var(--danger)"; // RED
