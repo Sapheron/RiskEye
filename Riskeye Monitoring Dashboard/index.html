@@ -2354,9 +2354,9 @@
         $("val-temp").textContent = machineTemp;
         let tempColor;
 
-        if (machineTemp <= 40) {
+        if (machineTemp <= 35) {
           tempColor = "var(--safe)"; // GREEN
-        } else if (machineTemp <= 50) {
+        } else if (machineTemp <= 40) {
           tempColor = "var(--warn)"; // YELLOW
         } else {
           tempColor = "var(--danger)"; // RED
@@ -2455,7 +2455,7 @@
           setStatus("EMERGENCY STOP ACTIVATED", "danger", "emergency");
         } else if (machineTemp >= 41) {
           setStatus("TEMPERATURE CRITICAL", "danger", "thermostat");
-        } else if (machineTemp > 30) {
+        } else if (machineTemp > 35) {
           setStatus("TEMPERATURE WARNING", "warning", "thermostat");
         } // SOUND STATUS FIX
         // ✅ SIMPLE SOUND STATUS
