@@ -49,6 +49,6 @@ Web Dashboard displays live data and alerts
 
 ## 📸 Dashboard Preview
 
-![Dashboard 1](Riskeye Monitoring Dashboard/d1.png)
+![Dashboard 1](riskeye-monitoring-dashboard/d1.png)
 
-![Dashboard 2](Riskeye Monitoring Dashboard/d2.png)
+![Dashboard 2](riskeye-monitoring-dashboard/d2.png)
