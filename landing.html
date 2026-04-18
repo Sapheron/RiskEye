@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiskEye — Industrial Safety Monitoring System</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">
+            <div class="dot"></div>
+            RISKEYE
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#sensors">Sensors</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#hardware">Hardware</a></li>
+        </ul>
+        <a class="nav-cta" href="https://github.com/Sapheron/RiskEye">Get Started</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-badge"><span></span>Real-Time Industrial Safety Monitoring System</div>
+        <h1 class="hero-title">RISK<span class="accent">EYE</span></h1>
+        <p class="hero-sub">An ESP32-powered industrial safety system. Monitors temperature, sound, motion, and
+            unauthorised access — with instant Firebase alerts and a live web dashboard.</p>
+        <div class="hero-buttons">
+            <a class="btn-primary" href="#how">See How It Works</a>
+            <a class="btn-outline" href="#hardware">Hardware Setup</a>
+        </div>
+
+        <!-- Ticker -->
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <div class="ticker-item"><span class="blink">●</span> SYSTEM ONLINE</div>
+                <div class="ticker-item">TEMP: 28.4°C — NORMAL</div>
+                <div class="ticker-item alert-tick">⚠ SOUND: 31 dB — ABNORMAL DETECTED</div>
+                <div class="ticker-item">MOTION: LOW — CLEAR</div>
+                <div class="ticker-item">PEOPLE: 0 — AREA SECURE</div>
+                <div class="ticker-item">FIREBASE: LIVE ●</div>
+                <div class="ticker-item">UPTIME: 04:23:11</div>
+                <div class="ticker-item alert-tick">● EMERGENCY STOP — MONITORING ACTIVE</div>
+                <!-- duplicate for seamless loop -->
+                <div class="ticker-item"><span class="blink">●</span> SYSTEM ONLINE</div>
+                <div class="ticker-item">TEMP: 28.4°C — NORMAL</div>
+                <div class="ticker-item alert-tick">⚠ SOUND: 31 dB — ABNORMAL DETECTED</div>
+                <div class="ticker-item">MOTION: LOW — CLEAR</div>
+                <div class="ticker-item">PEOPLE: 0 — AREA SECURE</div>
+                <div class="ticker-item">FIREBASE: LIVE ●</div>
+                <div class="ticker-item">UPTIME: 04:23:11</div>
+                <div class="ticker-item alert-tick">● EMERGENCY STOP — MONITORING ACTIVE</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-num">5<span class="stat-accent">+</span></div>
+            <div class="stat-label">Active Sensors</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num"><span class="stat-accent">&lt;</span>1s</div>
+            <div class="stat-label">Alert Latency</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">24<span class="stat-accent">/</span>7</div>
+            <div class="stat-label">Live Monitoring</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">100<span class="stat-accent">%</span></div>
+            <div class="stat-label">Firebase Sync</div>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how">
+        <div class="how-inner">
+            <div class="how-header">
+                <div class="section-label">Process</div>
+                <h2 class="section-title">HOW IT<br>WORKS</h2>
+            </div>
+            <div class="flow-container">
+
+                <div class="flow-step active-step">
+                    <div class="flow-line-col">
+                        <div class="flow-num">01</div>
+                        <div class="flow-line"></div>
+                    </div>
+                    <div class="flow-content">
+                        <div class="flow-tag">Data Collection</div>
+                        <div class="flow-title">ESP32 Reads All Sensors</div>
+                        <div class="flow-desc">The ESP32 microcontroller continuously polls every sensor: the DHT11
+                            reads machine temperature every 2 seconds, the I2S MEMS microphone captures sound RMS every
+                            second, the VL53L0X ToF sensor measures distance for motion detection, the IR sensor counts
+                            people crossing a zone, and the emergency button is debounce-monitored in real time.</div>
+                        <div class="flow-chips">
+                            <span class="chip">DHT11 </span>
+                            <span class="chip">I2S MIC </span>
+                            <span class="chip">VL53L0X </span>
+                            <span class="chip">IR </span>
+                            <span class="chip">BTN </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 02 -->
+                <div class="flow-container">
+                    <div class="flow-step active-step">
+                        <div class="flow-line-col">
+                            <div class="flow-num">02</div>
+                            <div class="flow-line"></div>
+                        </div>
+                        <div class="flow-content">
+                            <div class="flow-tag">Threshold Logic</div>
+                            <div class="flow-title">Machine Temperature Monitoring</div>
+                            <div class="flow-desc">The system continuously monitors machine temperature using the ESP32
+                                and
+                                applies a threshold-based evaluation mechanism to ensure operational safety.<br><br>
+
+                                Temperature Thresholds:<br>
+                                The system uses three configurable thresholds to detect different levels of temperature
+                                anomalies:<br><br>
+
+                                Safe Threshold: 30°C (Normal operation)<br>
+                                Warning Threshold: 40°C (Requires attention)<br>
+                                Danger Threshold: 50°C (Immediate action required)<br><br>
+
+                                Real-Time Monitoring:<br>
+                                The ESP32 reads temperature every 2 seconds and compares it against these thresholds,
+                                updating the system state accordingly.<br><br>
+
+                                System Purpose:<br><br>
+
+                                Prevent machine overheating<br>
+                                Provide early warnings for potential failures<br>
+                                Ensure safe operating conditions
+                            </div>
+                            <div class="flow-chips">
+                                <span class="chip">30°C SAFE</span>
+                                <span class="chip">40°C WARNING</span>
+                                <span class="chip">50°C DANGER</span>
+                            </div>
+                        </div>
+                    </div>
+                </div><br><br>
+
+                <!-- 03 -->
+                <div class="flow-container">
+                    <div class="flow-step active-step">
+                        <div class="flow-line-col">
+                            <div class="flow-num">03</div>
+                            <div class="flow-line"></div>
+                        </div>
+                        <div class="flow-content">
+                            <div class="flow-tag">Sound Monitoring</div>
+                            <div class="flow-title">Machine Sound Analysis</div>
+                            <div class="flow-desc">
+                                The system continuously monitors machine sound levels using an I2S MEMS microphone
+                                connected
+                                to the ESP32 and evaluates noise conditions in real time.<br><br>
+
+                                Real-Time Detection (ESP32):<br>
+                                The ESP32 captures audio signals and calculates the RMS (Root Mean Square) value to
+                                determine sound intensity and detect abnormal noise patterns.<br><br>
+
+                                Threshold Evaluation (On-Device):<br>
+                                The system compares the RMS value with a predefined threshold to identify abnormal
+                                conditions.<br><br>
+
+                                System Response:<br><br>
+                                When abnormal sound is detected, the buzzer is activated<br>
+                                The emergency flag is automatically set to true<br>
+                                Sensor data is instantly updated to the cloud database<br><br>
+
+                                Dashboard Visualization:<br>
+                                The dashboard displays sound levels in real time and classifies them into:<br><br>
+
+                                🟢 Normal: Sound within safe range<br>
+                                🟡 Warning: Slight increase in noise<br>
+                                🔴 Critical: Abnormal or high sound detected<br><br>
+
+                                This helps detect unusual machine behavior, potential faults, and unsafe operating
+                                conditions.
+                            </div>
+                            <div class="flow-chips">
+                                <span class="chip">RMS ≤ 25 → NORMAL</span>
+                                <span class="chip">RMS > 25 → ABNORMAL</span>
+                                <span class="chip">HIGH RMS → BUZZER ON</span>
+                                <span class="chip">ABNORMAL → EMERGENCY</span>
+                            </div>
+                        </div>
+                    </div><br><br>
+
+                    <!-- 04 -->
+                    <div class="flow-container">
+                        <div class="flow-step active-step">
+                            <div class="flow-line-col">
+                                <div class="flow-num">04</div>
+                                <div class="flow-line"></div>
+                            </div>
+                            <div class="flow-content">
+                                <div class="flow-tag">Human Detection</div>
+                                <div class="flow-title">Restricted Area Monitoring</div>
+                                <div class="flow-desc">
+                                    The system detects human presence in restricted zones using an IR sensor connected
+                                    to
+                                    the
+                                    ESP32 and maintains a real-time count of detected entries.<br><br>
+
+                                    Real-Time Detection (ESP32):<br>
+                                    The IR sensor detects objects based on infrared reflection. When a person crosses
+                                    the
+                                    sensor
+                                    (LOW signal), it is identified as an entry event.<br><br>
+
+                                    Event Handling:<br><br>
+                                    Each detection increments the people count<br>
+                                    A short buzzer beep is triggered for every entry<br>
+                                    Debounce logic ensures accurate counting without false triggers<br><br>
+
+                                    Data Transmission:<br>
+                                    The updated people count is continuously stored in the cloud database and persists
+                                    even
+                                    after system reboot.<br><br>
+
+                                    Dashboard Visualization:<br>
+                                    The dashboard displays the number of people detected and allows monitoring of
+                                    restricted
+                                    area access in real time.<br><br>
+
+                                    System Purpose:<br><br>
+                                    Monitor unauthorized access<br>
+                                    Track movement in restricted zones<br>
+                                    Maintain safety compliance in industrial environments
+                                </div>
+                            </div>
+                        </div><br><br>
+
+
+
+                        <!-- 05 -->
+
+                        <div class="flow-container">
+                            <div class="flow-step active-step">
+                                <div class="flow-line-col">
+                                    <div class="flow-num">05</div>
+                                    <div class="flow-line"></div>
+                                </div>
+                                <div class="flow-content">
+                                    <div class="flow-tag">Emergency Control</div>
+                                    <div class="flow-title">Emergency Trigger</div>
+                                    <div class="flow-desc">
+                                        The system includes a physical emergency button connected to the ESP32 that
+                                        allows
+                                        immediate
+                                        manual intervention during critical situations.<br><br>
+
+                                        Real-Time Detection (ESP32):<br>
+                                        The emergency button is continuously monitored using debounce logic to ensure
+                                        accurate
+                                        detection of presses without noise or false triggers.<br><br>
+
+                                        Trigger Mechanism:<br><br>
+                                        When the button is pressed, the system instantly sets the emergency state to
+                                        true<br>
+                                        The emergency status is immediately sent to the cloud database<br>
+                                        This action overrides all normal system operations<br><br>
+
+                                        System Response:<br><br>
+                                        Emergency alert is activated across the system<br>
+                                        Buzzer and safety mechanisms can be triggered<br>
+                                        Critical status is displayed on the dashboard in real time<br><br>
+
+                                        Dashboard Control:<br>
+                                        The dashboard provides an option to reset the emergency state, which updates the
+                                        database
+                                        and restores normal system operation.<br><br>
+
+                                        System Purpose:<br><br>
+                                        Provide instant manual shutdown capability<br>
+                                        Ensure operator safety during hazardous conditions<br>
+                                        Allow quick response to unexpected emergencies
+                                    </div>
+                                </div>
+                            </div><br><br>
+
+                            <!-- 06 -->
+                            <div class="flow-container">
+                                <div class="flow-step active-step">
+                                    <div class="flow-line-col">
+                                        <div class="flow-num">06</div>
+                                        <div class="flow-line"></div>
+                                    </div>
+                                    <div class="flow-content">
+                                        <div class="flow-tag">Cloud Sync</div>
+                                        <div class="flow-title">Firebase Realtime Database</div>
+                                        <div class="flow-desc">
+                                            The system uses Firebase Realtime Database to store and synchronize all
+                                            sensor data
+                                            in
+                                            real
+                                            time between the ESP32 device and the web dashboard.<br><br>
+
+                                            Real-Time Data Sync:<br>
+                                            The ESP32 continuously sends sensor readings to Firebase using the Firebase
+                                            ESP
+                                            Client
+                                            library, ensuring low-latency updates and live monitoring.<br><br>
+
+                                            Data Structure:<br>
+                                            All data is organized under the <code
+                                                style="color:var(--amber);font-family:var(--font-mono)">/sensors/</code>
+                                            path,
+                                            including:<br><br>
+
+                                            machineTemp → Machine temperature readings<br>
+                                            soundLevel → Sound RMS values<br>
+                                            motion → Machine movement status<br>
+                                            people → Total people detected<br>
+                                            emergencyBtn → Emergency state flag<br><br>
+
+                                            Authentication & Security:<br>
+                                            Secure access is handled using email and password authentication, ensuring
+                                            only
+                                            authorized
+                                            devices and users can read or write data.<br><br>
+
+                                            Data Persistence:<br>
+                                            Critical values such as people count and emergency state are stored
+                                            persistently,
+                                            allowing
+                                            data recovery even after system reboot or reconnection.<br><br>
+
+                                            System Purpose:<br><br>
+
+                                            Enable real-time monitoring across devices<br>
+                                            Maintain synchronized system state<br>
+                                            Provide reliable cloud-based data storage
+                                        </div>
+                                        <div class="flow-chips">
+                                            <span class="chip">REAL-TIME SYNC</span>
+                                            <span class="chip">/sensors/ PATH</span>
+                                            <span class="chip">EMAIL AUTH</span>
+                                            <span class="chip">PERSISTENT DATA</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+
+                                <div class="flow-container">
+                                    <div class="flow-step active-step">
+                                        <div class="flow-line-col">
+                                            <div class="flow-num">07</div>
+                                            <div class="flow-line"></div>
+                                        </div>
+                                        <div class="flow-content">
+                                            <div class="flow-tag">Live Dashboard</div>
+                                            <div class="flow-title">Real-Time Web Monitoring Interface</div>
+                                            <div class="flow-desc">
+                                                The web dashboard provides a real-time monitoring interface by
+                                                subscribing
+                                                to
+                                                Firebase
+                                                Realtime Database using
+                                                <code
+                                                    style="color:var(--green);font-family:var(--font-mono)">ref.on('value')</code>,
+                                                enabling instant data updates without the need for polling.<br><br>
+
+                                                Real-Time Updates:<br>
+                                                Every change in the database is pushed immediately to the UI, ensuring
+                                                live
+                                                synchronization
+                                                between the ESP32 and the dashboard.<br><br>
+
+                                                Dynamic UI Behavior:<br><br>
+
+                                                Sensor cards update instantly with new values<br>
+                                                Status banner changes color based on system condition<br>
+                                                Sparklines and charts redraw dynamically<br>
+                                                Alerts are generated and logged in the history panel<br><br>
+
+                                                Analytics & Visualization:<br>
+                                                The dashboard uses Chart.js to process and visualize data trends,
+                                                helping
+                                                users
+                                                understand
+                                                system behavior over time.<br><br>
+
+                                                System Purpose:<br><br>
+
+                                                Provide real-time visibility of all sensor data<br>
+                                                Enable quick identification of abnormal conditions<br>
+                                                Maintain a responsive and interactive monitoring experience
+                                            </div>
+                                            <div class="flow-chips">
+                                                <span class="chip">REAL-TIME SYNC</span>
+                                                <span class="chip">NO POLLING</span>
+                                                <span class="chip">CHART.JS ANALYTICS</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+    </section>
+
+    <!-- SENSORS -->
+    <section class="sensors-section" id="sensors">
+        <div class="sensors-inner">
+            <div class="section-label">Sensors</div>
+            <h2 class="section-title">WHAT'S<br>MONITORED</h2>
+            <div class="sensors-grid">
+
+                <div class="sensor-tile">
+                    <div class="tile-icon red">🌡️</div>
+                    <div class="tile-name">Machine Temperature</div>
+                    <div class="tile-desc">DHT11 sensor reads ambient machine temperature every 2 seconds and pushes to
+                        Firebase. Colour-coded sparkline tracks trends over the last 20 readings.</div>
+                    <div class="tile-thresholds">
+                        <span class="threshold safe">≤35°C — NORMAL</span>
+                        <span class="threshold warn">≤40°C — WARNING</span>
+                        <span class="threshold danger">&gt;40°C — CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="sensor-tile">
+                    <div class="tile-icon green">🎙️</div>
+                    <div class="tile-name">Sound Level (RMS)</div>
+                    <div class="tile-desc">MEMS I2S microphone captures audio at 44.1kHz. RMS amplitude is computed
+                        on-device every second. Abnormal sound triggers buzzer and emergency flag instantly.</div>
+                    <div class="tile-thresholds">
+                        <span class="threshold safe">≤25 RMS — NORMAL</span>
+                        <span class="threshold danger">&gt;25 RMS — ABNORMAL</span>
+                    </div>
+                </div>
+
+                <div class="sensor-tile">
+                    <div class="tile-icon amber">📡</div>
+                    <div class="tile-name">Machine Motion</div>
+                    <div class="tile-desc">VL53L0X time-of-flight sensor measures distance to detect if the machine has
+                        shifted position. Distances over 30cm flag a HIGH motion state.</div>
+                    <div class="tile-thresholds">
+                        <span class="threshold safe">≤30cm — LOW</span>
+                        <span class="threshold danger">&gt;30cm — HIGH</span>
+                    </div>
+                </div>
+
+                <div class="sensor-tile">
+                    <div class="tile-icon blue">🚶</div>
+                    <div class="tile-name">People / Zone Access</div>
+                    <div class="tile-desc">IR sensor detects each person entering a restricted zone. Count is cumulative
+                        and persists across ESP32 reboots via Firebase. A beep fires on every detection. Reset is
+                        available from the dashboard.</div>
+                    <div class="tile-thresholds">
+                        <span class="threshold safe">0 — CLEAR</span>
+                        <span class="threshold danger">&gt;0 — DETECTED</span>
+                    </div>
+                </div>
+
+                <div class="sensor-tile">
+                    <div class="tile-icon red">🔴</div>
+                    <div class="tile-name">Emergency Stop Button</div>
+                    <div class="tile-desc">Debounced physical button on GPIO 4. A press sets <code
+                            style="font-family:var(--font-mono);font-size:0.8em">emergencyBtn=true</code> in Firebase,
+                        triggering full dashboard emergency mode. Can also be triggered remotely or by sensor
+                        thresholds.</div>
+                    <div class="tile-thresholds">
+                        <span class="threshold safe">false — STANDBY</span>
+                        <span class="threshold danger">true — TRIGGERED</span>
+                    </div>
+                </div>
+
+                <div class="sensor-tile" style="background:linear-gradient(135deg,rgba(232,50,26,0.05),transparent);">
+                    <div class="tile-icon red">⚡</div>
+                    <div class="tile-name">Auto-Trigger Logic</div>
+                    <div class="tile-desc">The system self-activates emergency mode when temperature exceeds 50°C or
+                        sound is abnormal — even without a button press. The ESP32 writes the emergency flag
+                        automatically to Firebase.</div>
+                    <div class="tile-thresholds">
+                        <span class="threshold danger">TEMP &gt; 50°C → AUTO STOP</span>
+                        <span class="threshold danger">SOUND &gt; 25 → AUTO STOP</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DASHBOARD FEATURES -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="dashboard-inner">
+            <div class="section-label">Web Dashboard</div>
+            <h2 class="section-title">THE LIVE<br>INTERFACE</h2>
+
+            <div class="dashboard-grid">
+                <div class="feature-list">
+
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <div>
+                            <div class="feature-title">Live Sensor Cards</div>
+                            <div class="feature-desc">Five real-time sensor cards with colour-coded status chips,
+                                sparkline history charts, and animated top-accent bars that change between safe,
+                                warning, and danger states.</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <div>
+                            <div class="feature-title">Analytics Page</div>
+                            <div class="feature-desc">Chart.js-powered doughnut charts show reading distribution across
+                                zones. Segmented line charts track temperature and sound trends over the last 20
+                                readings with zone threshold overlays.</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🕑</div>
+                        <div>
+                            <div class="feature-title">Event History Log</div>
+                            <div class="feature-desc">Every status change is automatically logged with timestamp and
+                                severity. Sort by newest, oldest, severity, or view critical events only. Stores up to
+                                100 events per session.</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🔔</div>
+                        <div>
+                            <div class="feature-title">Notification Panel</div>
+                            <div class="feature-desc">Slide-in notification drawer with colour-coded severity dots. Dot
+                                indicators on the topbar show unread alerts. Notification count badge appears on the
+                                sidebar nav item.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HARDWARE -->
+    <section class="hardware-section" id="hardware">
+        <div class="hardware-inner">
+            <div class="section-label">Hardware</div>
+            <h2 class="section-title">THE<br>HARDWARE</h2>
+            <div class="hardware-grid">
+                <div class="hw-list">
+                    <div class="hw-item">
+                        <div>
+                            <div class="hw-name">DHT11 Temperature Sensor</div>
+                            <div class="hw-desc">Reads ambient machine temperature. Polled every 2s. Thresholds at 35°C,
+                                40°C, 50°C.</div>
+                        </div>
+                    </div>
+                    <div class="hw-item">
+                        <div>
+                            <div class="hw-name">MEMS Microphone (I2S)</div>
+                            <div class="hw-desc">WS:25, BCLK:26, SD:33. 44.1kHz sample rate. RMS computed over
+                                1024-sample DMA buffer.</div>
+                        </div>
+                    </div>
+                    <div class="hw-item">
+                        <div>
+                            <div class="hw-name">VL53L0X ToF Distance Sensor</div>
+                            <div class="hw-desc">Measures distance via time-of-flight. &gt;30cm = HIGH motion status.
+                                Detects machine positional shift.</div>
+                        </div>
+                    </div>
+                    <div class="hw-item">
+                        <div>
+                            <div class="hw-name">IR Sensor (People Counter)</div>
+                            <div class="hw-desc">Active-low output. Debounced at 80ms. Falling edge = person detected.
+                                Count persists in Firebase.</div>
+                        </div>
+                    </div>
+                    <div class="hw-item">
+                        <div>
+                            <div class="hw-name">Emergency Stop Button</div>
+                            <div class="hw-desc">INPUT_PULLUP with 50ms debounce. LOW press sets emergency = true in
+                                Firebase immediately.</div>
+                        </div>
+                    </div>
+                    <div class="hw-item">
+                        <div>
+                            <div class="hw-name">Buzzer</div>
+                            <div class="hw-desc">Fires on abnormal sound detection and on each IR person count.
+                                Controlled bidirectionally via Firebase.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hw-item">
+                    <div>
+                        <div class="hw-name">OLED Display</div>
+                        <div class="hw-desc">
+                            Displays real-time system data locally on the device, including temperature, sound level,
+                            movement status, and emergency state.
+                            Provides instant visual feedback without requiring access to the web dashboard.
+                            Automatically updates values and highlights critical conditions for quick on-site
+                            monitoring.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+        <div class="section-label" style="justify-content:center">Deploy Now</div>
+        <h2 class="cta-tagline">PROTECT<br>YOUR <span class="red">ZONE</span></h2>
+        <p class="cta-sub">Industrial-grade safety monitoring. Real-time alerts. Instant emergency response.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+            <a class="btn-primary" href="#">Back To Home</a>
+            <a class="btn-outline" href="https://github.com/Sapheron/RiskEye">View Source</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer
+        style="background:#0d0f14;border-top:1px solid var(--border);font-family:var(--font-body);color:var(--white);padding:72px 48px 40px;">
+
+        <div
+            style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto;">
+
+            <!-- Brand -->
+            <div>
+                <div
+                    style="font-family:var(--font-display);font-size:2.2rem;letter-spacing:0.08em;display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                    <div class="dot"></div>RISKEYE
+                </div>
+                <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;max-width:280px;">Industrial-grade safety
+                    monitoring. Real-time alerts. Instant emergency response — powered by ESP32 &amp; Firebase.</p>
+                <div
+                    style="margin-top:24px;display:inline-flex;align-items:center;gap:7px;background:var(--green-dim);border:1px solid rgba(29,221,127,0.22);border-radius:2px;padding:5px 12px;font-family:var(--font-mono);font-size:0.62rem;font-weight:700;letter-spacing:0.1em;color:var(--green);">
+                    <div class="dot" style="width:6px;height:6px;"></div>ALL SYSTEMS OPERATIONAL
+                </div>
+            </div>
+
+            <!-- Developers -->
+            <div>
+                <div class="section-label" style="margin-bottom:20px;">Developers</div>
+
+                <!-- Dev 1 -->
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:18px 20px;margin-bottom:12px;transition:border-color 0.2s;"
+                    onmouseover="this.style.borderColor='rgba(240,241,245,0.2)'"
+                    onmouseout="this.style.borderColor='var(--border)'">
+                    <div
+                        style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px;">
+                        Frontend Developer</div>
+                    <div style="font-weight:700;font-size:0.95rem;margin-bottom:12px;">Mohamed Anshad kp</div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <a href="https://github.com/CypherBladeX" target="_blank"
+                            style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid var(--border);border-radius:3px;font-size:0.68rem;font-family:var(--font-mono);color:var(--muted);text-decoration:none;transition:all 0.2s;"
+                            onmouseover="this.style.borderColor='#a78bfa';this.style.color='#a78bfa'"
+                            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+                            GitHub
+                        </a>
+                        <a href="https://www.instagram.com/anshad__004?igsh=YmI1NDZibHU3anIw" target="_blank"
+                            style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid var(--border);border-radius:3px;font-size:0.68rem;font-family:var(--font-mono);color:var(--muted);text-decoration:none;transition:all 0.2s;"
+                            onmouseover="this.style.borderColor='#f472b6';this.style.color='#f472b6'"
+                            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+                            Mohamed Anshad Kp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dev 2 -->
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:18px 20px;transition:border-color 0.2s;"
+                    onmouseover="this.style.borderColor='rgba(240,241,245,0.2)'"
+                    onmouseout="this.style.borderColor='var(--border)'">
+                    <div
+                        style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px;">
+                        IoT Developer</div>
+                    <div style="font-weight:700;font-size:0.95rem;margin-bottom:12px;">Muhammed Hafsal</div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <a href="https://github.com/hafsal8" target="_blank"
+                            style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid var(--border);border-radius:3px;font-size:0.68rem;font-family:var(--font-mono);color:var(--muted);text-decoration:none;transition:all 0.2s;"
+                            onmouseover="this.style.borderColor='#a78bfa';this.style.color='#a78bfa'"
+                            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+                            GitHub
+                        </a>
+                        <a href="https://www.instagram.com/hafffsal?igsh=MXRwajNwNm9xZGFubQ==" target="_blank"
+                            style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid var(--border);border-radius:3px;font-size:0.68rem;font-family:var(--font-mono);color:var(--muted);text-decoration:none;transition:all 0.2s;"
+                            onmouseover="this.style.borderColor='#f472b6';this.style.color='#f472b6'"
+                            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+                            Muhammed Hafsal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nav links -->
+            <div>
+                <div class="section-label" style="margin-bottom:20px;">Navigate</div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <a href="#how"
+                        style="color:var(--muted);font-size:0.82rem;text-decoration:none;transition:color 0.2s;"
+                        onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--muted)'">→ How
+                        It Works</a>
+                    <a href="#sensors"
+                        style="color:var(--muted);font-size:0.82rem;text-decoration:none;transition:color 0.2s;"
+                        onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--muted)'">→
+                        Sensors</a>
+                    <a href="#dashboard"
+                        style="color:var(--muted);font-size:0.82rem;text-decoration:none;transition:color 0.2s;"
+                        onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--muted)'">→
+                        Dashboard</a>
+                    <a href="#hardware"
+                        style="color:var(--muted);font-size:0.82rem;text-decoration:none;transition:color 0.2s;"
+                        onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--muted)'">→
+                        Hardware</a>
+                    <a href="https://github.com/Sapheron/RiskEye" target="_blank"
+                        style="color:var(--muted);font-size:0.82rem;text-decoration:none;transition:color 0.2s;"
+                        onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--muted)'">→
+                        Source Code</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
