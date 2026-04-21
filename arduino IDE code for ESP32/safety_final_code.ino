@@ -318,6 +318,17 @@ void loop() {
     }
   }
   irLastState = irReading;
+  
+  if (Firebase.ready()) {
+  if (Firebase.RTDB.getInt(&fbdoPeople, "/sensors/people")) {
+    int firebaseCount = fbdoPeople.intData();
+
+    if (firebaseCount != peopleCount) {
+      Serial.println("Syncing from Firebase...");
+      peopleCount = firebaseCount;
+    }
+  }
+}
 
   // ── VL53L0X Distance / Motion ─────────
   VL53L0X_RangingMeasurementData_t measure;
