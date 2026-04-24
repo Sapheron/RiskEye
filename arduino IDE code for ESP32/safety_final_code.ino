@@ -64,7 +64,7 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 // ─────────────────────────────────────────
-//  Button Debounce
+//  butoon function   
 // ─────────────────────────────────────────
 bool emergency        = false;
 bool lastReading      = HIGH;

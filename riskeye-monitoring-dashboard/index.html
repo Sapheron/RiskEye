@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Industrial Safety Monitor</title>
-  <link rel="icon" type="image/x-icon" href="logo.png" />
+  <link rel="icon" type="image/x-icon" href="logo risk eye tran.png" />
 
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap"
@@ -1121,6 +1121,11 @@
       display: flex;
     }
 
+    [data-theme="light"] .logo-dark  { display: none !important; }
+    [data-theme="light"] .logo-light { display: block !important; }
+    [data-theme="dark"]  .logo-dark  { display: block !important; }
+    [data-theme="dark"]  .logo-light { display: none !important; }
+
     @media (max-width:768px) {
       .menu-btn {
         display: flex !important;
@@ -1255,18 +1260,29 @@
     </div>
   </div>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-      <div class="brand-icon" style="background:transparent;padding:0;">
-        <img src="logo2.png" alt="Logo" class="logo-img" />
-      </div>
-      <div class="brand-text">
-        <div class="brand-name">Industrial</div>
-        <div class="brand-sub">Safety Monitor</div>
-      </div>
-    </div>
+<!-- SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<nav class="sidebar" id="sidebar">
+ <div class="sidebar-brand" style="justify-content:center; padding:20px 10px;">
+  <div class="brand-icon" style="background:transparent; padding:0; width:220px; height:110px; box-shadow: none; overflow: hidden;">
+    
+    <!-- Dark mode logo (white text) -->
+    <img src="main logo.png" 
+         alt="Logo" 
+         class="logo-img logo-dark"
+         style="width:125%; height:125%; object-fit:contain;" />
+
+    <!-- Light mode logo (dark text) -->
+    <img src="white mode.png" 
+         alt="Logo" 
+         class="logo-img logo-light"
+         style="width:125%; height:125%; object-fit:contain; display:none;" />
+
+  </div>
+</div>
+
+  </div>
     <div class="nav-section">
       <div class="nav-label">Monitor</div>
       <div class="nav-item active" onclick="showPage('dashboard',this)">
@@ -1280,12 +1296,12 @@
         <span class="material-symbols-rounded nav-icon">history</span>History
       </div>
     </div>
-    <div class="nav-section" style="margin-top:8px;">
+    <!-- <div class="nav-section" style="margin-top:8px;">
       <div class="nav-label">System</div>
       <div class="nav-item" onclick="showPage('settings',this)">
         <span class="material-symbols-rounded nav-icon">tune</span>Settings
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
     <div class="sidebar-footer">
       <div class="stat-chip" style="border-radius:10px;">
         <span class="material-symbols-rounded" style="font-size:18px;" id="connIcon">wifi_off</span>

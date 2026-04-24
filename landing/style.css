@@ -1188,6 +1188,12 @@ footer {
     background: rgba(240, 241, 245, 0.03);
 }
 
+.logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
 /* ─── RESPONSIVE: TABLET ─── */
 @media (max-width: 900px) {
     .hamburger {
